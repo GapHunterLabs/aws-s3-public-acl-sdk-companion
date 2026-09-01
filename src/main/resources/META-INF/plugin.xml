@@ -1,0 +1,42 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>dev.gaphunter.awss3publicaclsdkcompanion</id>
+    <name>AWS S3 Public ACL via SDK Companion</name>
+    <vendor>Gap Hunter Labs</vendor>
+    <description><![CDATA[
+        <p>Warning on a real AWS SDK for Java call (application code, not
+        infrastructure-as-code) that sets a PUBLIC ACL on an S3 bucket or
+        object: SDK 1.x's <code>AmazonS3.setBucketAcl(bucket,
+        CannedAccessControlList.PublicRead)</code>/
+        <code>PutObjectRequest.withCannedAcl(...)</code>/
+        <code>.setCannedAcl(...)</code>, and SDK 2.x's fluent
+        <code>.acl(ObjectCannedACL.PUBLIC_READ)</code>/
+        <code>.acl("public-read")</code>.</p>
+        <p>Public exposure of data via application code, not just
+        infrastructure configuration -- a category with its own dedicated
+        detector in the AWS CodeGuru Detector Library. Different angle
+        from IaC-level S3 misconfig (already covered by CLI tools like
+        Checkov/tfsec); no Marketplace plugin found dedicated to this
+        specific application-code category.</p>
+        <p>Stated honestly: v0.1 only these known method forms of AWS SDK
+        1.x and 2.x -- never analyzes an IAM policy embedded as a JSON
+        string, never follows an ACL value passed as a parameter between
+        methods. The ACL argument is resolved as a direct literal/enum
+        reference, or through ONE level of local-variable indirection
+        within the same method.</p>
+        <p>Free. No license nags, no telemetry, no network calls.</p>
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <localInspection language="JAVA"
+            groupName="AWS S3 Public ACL via SDK Companion"
+            displayName="S3 bucket/object made public via application code"
+            enabledByDefault="true"
+            level="WARNING"
+            implementationClass="dev.gaphunter.awss3publicaclsdkcompanion.inspection.PublicAclInspection"/>
+        <notificationGroup id="AWS S3 Public ACL via SDK Companion" displayType="BALLOON"/>
+    </extensions>
+</idea-plugin>
