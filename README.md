@@ -7,6 +7,10 @@ CannedAccessControlList.PublicRead)`/`PutObjectRequest.withCannedAcl(...)`/
 `.setCannedAcl(...)`, and SDK 2.x's fluent
 `.acl(ObjectCannedACL.PUBLIC_READ)`/`.acl("public-read")`.
 
+## Screenshots
+
+![Screenshot 1](docs/screenshots/Screenshot_1.png)
+
 ## Why it exists
 
 Public exposure of data via application code, not just infrastructure
