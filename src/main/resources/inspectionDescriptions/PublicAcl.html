@@ -1,0 +1,10 @@
+<html>
+<body>
+Reports an AWS SDK for Java call in application code that makes an S3 bucket or object public: SDK 1.x
+<code>setBucketAcl(bucket, CannedAccessControlList.PublicRead)</code>, <code>withCannedAcl(...)</code> or
+<code>setCannedAcl(...)</code>, and SDK 2.x <code>.acl(ObjectCannedACL.PUBLIC_READ)</code> or <code>.acl("public-read")</code>.
+<!-- tooltip end -->
+<p>A public ACL set from code exposes data the same way as a misconfigured bucket policy, but it does not show up
+in infrastructure-as-code scanners, because it happens at runtime.</p>
+</body>
+</html>
